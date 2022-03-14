@@ -2,7 +2,7 @@ import React, { createContext, useState, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { UserAuth, UserCredentials } from './../models/user';
-import * as auth from './../services/auth';
+import * as auth from '../api/services/auth';
 
 interface Props {
   children?: React.ReactNode;
@@ -29,15 +29,10 @@ const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<UserAuth | undefined>(initialUserState);
 
   const login = async (user: UserCredentials) => {
-    const response = await auth.login(user);
+    const userAuth = await auth.login(user);
 
-    // TODO - Validate errors from the API
-    if (!response) {
-      return;
-    }
-
-    setUser(response);
-    sessionStorage.setItem('appeltemplate.user', JSON.stringify(response));
+    setUser(userAuth);
+    sessionStorage.setItem('appeltemplate.user', JSON.stringify(userAuth));
 
     // Send the user back to the page he tried to visit when he was
     // redirected to the login page. Use { replace: true } so we don't create

@@ -52,6 +52,7 @@ const Login = () => {
             <Grid item xs={12}>
               <TextField
                 label='Password'
+                type='password'
                 value={user.password}
                 disabled={loading}
                 onChange={(e) =>

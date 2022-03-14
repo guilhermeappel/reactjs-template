@@ -8,7 +8,7 @@ import ForgotPassword from './pages/forgot-password';
 const routes: Route[] = [
   { path: '/', isPrivate: true, element: Home },
   { path: '/login', isPrivate: false, element: Login },
-  { path: '/register', isPrivate: true, element: Register },
+  { path: '/register', isPrivate: false, element: Register },
   { path: '/forgot-password', isPrivate: false, element: ForgotPassword },
 ];
 
