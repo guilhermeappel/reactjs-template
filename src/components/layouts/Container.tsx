@@ -23,4 +23,4 @@ const Container = ({ children }: Props) => {
   );
 };
 
-export default React.memo(Container);
+export default Container;

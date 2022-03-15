@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link as MuiLink } from '@mui/material';
 import { styled } from '@mui/system';
@@ -35,4 +34,4 @@ const Link = ({ href, description, disabled }: Props) => {
   );
 };
 
-export default React.memo(Link);
+export default Link;

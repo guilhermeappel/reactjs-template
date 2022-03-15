@@ -1,14 +1,14 @@
-import React, { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import { UserAuth, UserCredentials } from './../models/user';
-import * as auth from '../api/services/auth';
+import * as service from '../api/services/user';
 
 interface Props {
   children?: React.ReactNode;
 }
 
-interface AuthContextData {
+interface ContextData {
   authenticated: boolean;
   login: (user: UserCredentials) => Promise<void>;
   logout: () => void;
@@ -20,7 +20,8 @@ const initialUserState = sessionUser
   ? (JSON.parse(sessionUser) as UserAuth)
   : undefined;
 
-const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+const AuthContext = createContext<ContextData>({} as ContextData);
+const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }: Props) => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<UserAuth | undefined>(initialUserState);
 
   const login = async (user: UserCredentials) => {
-    const userAuth = await auth.login(user);
+    const userAuth = await service.login(user);
 
     setUser(userAuth);
     sessionStorage.setItem('appeltemplate.user', JSON.stringify(userAuth));
@@ -61,7 +62,5 @@ const AuthProvider = ({ children }: Props) => {
     </AuthContext.Provider>
   );
 };
-
-const useAuth = () => useContext(AuthContext);
 
 export { AuthProvider, useAuth };

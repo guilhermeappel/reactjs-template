@@ -1,14 +1,21 @@
-import React from 'react';
 import Grid from '@mui/material/Grid';
 
 import { TextField } from '../../components/inputs';
+import { useRegister } from '../../contexts/Register';
 
 const UserAccount = () => {
+  const { user, handleChange } = useRegister();
+
   return (
     <>
       <Grid container spacing={1}>
         <Grid item xs={12}>
-          <TextField label='Name' required value='' onChange={() => {}} />
+          <TextField
+            label='Name'
+            required
+            value={user.name}
+            onChange={(e) => handleChange('name', e.currentTarget.value)}
+          />
         </Grid>
 
         <Grid item xs={12}>
@@ -16,8 +23,8 @@ const UserAccount = () => {
             label='Email'
             type='email'
             required
-            value=''
-            onChange={() => {}}
+            value={user.email}
+            onChange={(e) => handleChange('email', e.currentTarget.value)}
           />
         </Grid>
 
@@ -26,8 +33,8 @@ const UserAccount = () => {
             label='Password'
             type='password'
             required
-            value=''
-            onChange={() => {}}
+            value={user.password}
+            onChange={(e) => handleChange('password', e.currentTarget.value)}
           />
         </Grid>
 
@@ -36,8 +43,10 @@ const UserAccount = () => {
             label='Password Confirmation'
             type='password'
             required
-            value=''
-            onChange={() => {}}
+            value={user.passwordConfirmation}
+            onChange={(e) =>
+              handleChange('passwordConfirmation', e.currentTarget.value)
+            }
           />
         </Grid>
       </Grid>
@@ -45,4 +54,4 @@ const UserAccount = () => {
   );
 };
 
-export default React.memo(UserAccount);
+export default UserAccount;

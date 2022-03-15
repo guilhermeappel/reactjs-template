@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button as MuiButton } from '@mui/material';
 import { ButtonProps } from './../../models/button';
 
@@ -14,4 +13,4 @@ const Button = ({
   );
 };
 
-export default React.memo(Button);
+export default Button;

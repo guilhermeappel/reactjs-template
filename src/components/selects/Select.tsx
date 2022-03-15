@@ -1,14 +1,9 @@
-import React from 'react';
-import { MenuItem, Select as MuiSelect } from '@mui/material';
+import { MenuItem, Select as MuiSelect, SelectProps } from '@mui/material';
 
 import { SelectItem } from '../../models/select';
 
-interface Props {
-  id?: string;
-  label?: string;
-  value: string | number;
+interface Props extends SelectProps {
   options: SelectItem[];
-  onChange: () => void;
 }
 
 const Select = ({ options, ...rest }: Props) => {
@@ -23,4 +18,4 @@ const Select = ({ options, ...rest }: Props) => {
   );
 };
 
-export default React.memo(Select);
+export default Select;

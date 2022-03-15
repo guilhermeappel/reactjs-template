@@ -11,8 +11,6 @@ import {
   NavigateBefore as NavigateBackIcon,
 } from '@mui/icons-material';
 
-import { Step } from '../../models/step';
-
 import { Card } from '../../components/surfaces';
 import { Button, LoadingButton } from '../../components/buttons';
 import { Container } from '../../components/layouts';
@@ -21,6 +19,9 @@ import { Stepper } from '../../components/navigations';
 import UserAccountData from './UserAccountData';
 import UserPersonalData from './UserPersonalData';
 import UserAddressData from './UserAddressData';
+
+import { Step } from '../../models/step';
+import { useRegister } from '../../contexts/Register';
 
 const steps: Step[] = [
   {
@@ -44,10 +45,31 @@ const pages: { [key: number]: JSX.Element } = {
 };
 
 const Register = () => {
+  const { user, register } = useRegister();
+
   const [activeStep, setActiveStep] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
   const currentPageStep = useMemo(() => pages[activeStep], [activeStep]);
+
+  const disabledSubmit = useMemo(() => {
+    return (
+      !user.email ||
+      !user.email ||
+      !user.password ||
+      !user.passwordConfirmation ||
+      !user.identityDocument ||
+      !user.cpfCnpj ||
+      !user.cellPhone ||
+      !user.phone ||
+      !user.address ||
+      !user.addressNumber ||
+      !user.addressComplement ||
+      !user.neighborhood ||
+      !user.city ||
+      !user.zipCode
+    );
+  }, [user]);
 
   const handleNext = () => {
     if (activeStep === 2) {
@@ -65,14 +87,14 @@ const Register = () => {
     setActiveStep(activeStep - 1);
   };
 
-  const handleSubmit = (event: React.SyntheticEvent) => {
+  const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
 
     setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
-    }, 3000);
+    await register();
+
+    setLoading(false);
   };
 
   return (
@@ -104,7 +126,7 @@ const Register = () => {
                       description='SAVE'
                       type='submit'
                       loading={loading}
-                      disabled
+                      disabled={disabledSubmit}
                       icon={<SaveIcon />}
                     />
                   ) : (

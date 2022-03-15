@@ -1,3 +1,4 @@
 import TextField from './TextField';
+import DatePicker from './DatePicker';
 
-export { TextField };
+export { TextField, DatePicker };

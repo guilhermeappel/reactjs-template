@@ -26,4 +26,4 @@ const LoadingButton = ({
   );
 };
 
-export default React.memo(LoadingButton);
+export default LoadingButton;

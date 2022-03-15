@@ -13,29 +13,32 @@ import { theme } from './themes/main';
 
 import RequireAuth from './hocs/RequireAuth';
 import { AuthProvider } from './contexts/Auth';
+import { RegisterProvider } from './contexts/Register';
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <AuthProvider>
-          <Routes>
-            {routes.map((route, index) => (
-              <Route
-                key={index}
-                path={route.path}
-                element={
-                  route.isPrivate ? (
-                    <RequireAuth>
+          <RegisterProvider>
+            <Routes>
+              {routes.map((route, index) => (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={
+                    route.isPrivate ? (
+                      <RequireAuth>
+                        <route.element />
+                      </RequireAuth>
+                    ) : (
                       <route.element />
-                    </RequireAuth>
-                  ) : (
-                    <route.element />
-                  )
-                }
-              />
-            ))}
-          </Routes>
+                    )
+                  }
+                />
+              ))}
+            </Routes>
+          </RegisterProvider>
         </AuthProvider>
       </BrowserRouter>
     </ThemeProvider>

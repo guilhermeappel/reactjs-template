@@ -1,32 +1,15 @@
-import React from 'react';
+import { TextField as MuiTextField, TextFieldProps } from '@mui/material';
 
-import {
-  InputBaseComponentProps,
-  TextField as MuiTextField,
-} from '@mui/material';
-
-interface Props {
-  id?: string;
-  label: string;
-  value: string;
-  required?: boolean;
-  disabled?: boolean;
-  errorMessage?: string;
-  type?: 'text' | 'email' | 'number' | 'password';
-  inputProps?: InputBaseComponentProps;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-const TextField = ({ errorMessage, ...rest }: Props) => {
+const TextField = ({ helperText, ...rest }: TextFieldProps) => {
   return (
     <MuiTextField
       fullWidth
       variant='outlined'
-      error={!!errorMessage}
-      helperText={errorMessage}
+      error={!!helperText}
+      helperText={helperText}
       {...rest}
     />
   );
 };
 
-export default React.memo(TextField);
+export default TextField;
