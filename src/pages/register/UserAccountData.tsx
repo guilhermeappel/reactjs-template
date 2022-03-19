@@ -4,7 +4,7 @@ import { TextField } from '../../components/inputs';
 import { useRegister } from '../../contexts/Register';
 
 const UserAccount = () => {
-  const { user, handleChange } = useRegister();
+  const { user, errors, handleChange } = useRegister();
 
   return (
     <>
@@ -14,6 +14,7 @@ const UserAccount = () => {
             label='Name'
             required
             value={user.name}
+            helperText={errors.name?.[0]}
             onChange={(e) => handleChange('name', e.currentTarget.value)}
           />
         </Grid>
@@ -24,6 +25,7 @@ const UserAccount = () => {
             type='email'
             required
             value={user.email}
+            helperText={errors.email?.[0]}
             onChange={(e) => handleChange('email', e.currentTarget.value)}
           />
         </Grid>
@@ -34,6 +36,7 @@ const UserAccount = () => {
             type='password'
             required
             value={user.password}
+            helperText={errors.password?.[0]}
             onChange={(e) => handleChange('password', e.currentTarget.value)}
           />
         </Grid>
@@ -44,6 +47,7 @@ const UserAccount = () => {
             type='password'
             required
             value={user.passwordConfirmation}
+            helperText={errors.passwordConfirmation?.[0]}
             onChange={(e) =>
               handleChange('passwordConfirmation', e.currentTarget.value)
             }

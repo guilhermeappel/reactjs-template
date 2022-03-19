@@ -10,8 +10,9 @@ interface Props {
 
 interface ContextData {
   user: UserRegister;
-  register: () => Promise<void>;
+  errors: UserRegisterErrors;
   handleChange: (key: keyof UserRegister, value: unknown) => void;
+  register: () => void;
 }
 
 const RegisterContext = createContext<ContextData>({} as ContextData);
@@ -73,19 +74,20 @@ const RegisterProvider = ({ children }: Props) => {
     setUser({ ...user, [key]: value });
   };
 
-  const register = async () => {
-    try {
-      await service.register(user);
-
-      setUser(initialUserRegister);
-      navigate('/login');
-    } catch (errors) {
-      console.error(errors);
-    }
+  const register = () => {
+    service
+      .register(user)
+      .then((_) => {
+        setUser(initialUserRegister);
+        navigate('/login');
+      })
+      .catch((error) => {
+        setErrors(error.response.data.errors as UserRegisterErrors);
+      });
   };
 
   return (
-    <RegisterContext.Provider value={{ user, register, handleChange }}>
+    <RegisterContext.Provider value={{ user, errors, register, handleChange }}>
       {children}
     </RegisterContext.Provider>
   );

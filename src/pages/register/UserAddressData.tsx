@@ -4,7 +4,7 @@ import { TextField } from '../../components/inputs';
 import { useRegister } from '../../contexts/Register';
 
 const UserAddressData = () => {
-  const { user, handleChange } = useRegister();
+  const { user, errors, handleChange } = useRegister();
 
   return (
     <>
@@ -14,6 +14,7 @@ const UserAddressData = () => {
             label='Street Address'
             required
             value={user.address}
+            helperText={errors.address?.[0]}
             onChange={(e) => handleChange('address', e.currentTarget.value)}
           />
         </Grid>
@@ -23,6 +24,7 @@ const UserAddressData = () => {
             label='Nº'
             required
             value={user.addressNumber}
+            helperText={errors.addressNumber?.[0]}
             onChange={(e) =>
               handleChange('addressNumber', e.currentTarget.value)
             }
@@ -32,6 +34,7 @@ const UserAddressData = () => {
           <TextField
             label='Address Complement'
             value={user.addressComplement}
+            helperText={errors.addressComplement?.[0]}
             onChange={(e) =>
               handleChange('addressComplement', e.currentTarget.value)
             }
@@ -43,6 +46,7 @@ const UserAddressData = () => {
             label='Neighborhood'
             required
             value={user.neighborhood}
+            helperText={errors.neighborhood?.[0]}
             onChange={(e) =>
               handleChange('neighborhood', e.currentTarget.value)
             }
@@ -54,6 +58,7 @@ const UserAddressData = () => {
             label='City'
             required
             value={user.city}
+            helperText={errors.city?.[0]}
             onChange={(e) => handleChange('city', e.currentTarget.value)}
           />
         </Grid>
@@ -63,6 +68,7 @@ const UserAddressData = () => {
             label='Federative Unit'
             required
             value={user.federativeUnit}
+            helperText={errors.federativeUnit?.[0]}
             onChange={(e) =>
               handleChange('federativeUnit', e.currentTarget.value)
             }
@@ -74,6 +80,7 @@ const UserAddressData = () => {
             label='CEP'
             required
             value={user.zipCode}
+            helperText={errors.zipCode?.[0]}
             onChange={(e) => handleChange('zipCode', e.currentTarget.value)}
           />
         </Grid>

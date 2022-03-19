@@ -13,7 +13,7 @@ const userTypes: SelectItem[] = [
 ];
 
 const UserPersonalData = () => {
-  const { user, handleChange } = useRegister();
+  const { user, errors, handleChange } = useRegister();
 
   return (
     <>
@@ -33,6 +33,7 @@ const UserPersonalData = () => {
                 label='RG'
                 required
                 value={user.identityDocument}
+                helperText={errors.identityDocument?.[0]}
                 onChange={(e) =>
                   handleChange('identityDocument', e.currentTarget.value)
                 }
@@ -43,6 +44,7 @@ const UserPersonalData = () => {
                 label='CPF'
                 required
                 value={user.cpfCnpj}
+                helperText={errors.cpfCnpj?.[0]}
                 onChange={(e) => handleChange('cpfCnpj', e.currentTarget.value)}
               />
             </Grid>
@@ -54,6 +56,7 @@ const UserPersonalData = () => {
                 label='CNPJ'
                 required
                 value={user.cpfCnpj}
+                helperText={errors.cpfCnpj?.[0]}
                 onChange={(e) => handleChange('cpfCnpj', e.currentTarget.value)}
               />
             </Grid>
@@ -62,6 +65,7 @@ const UserPersonalData = () => {
                 label='Responsible Name'
                 required
                 value={user.responsibleName}
+                helperText={errors.responsibleName?.[0]}
                 onChange={(e) =>
                   handleChange('responsibleName', e.currentTarget.value)
                 }
@@ -72,6 +76,7 @@ const UserPersonalData = () => {
                 label='Responsible CPF'
                 required
                 value={user.responsibleCpf}
+                helperText={errors.responsibleCpf?.[0]}
                 onChange={(e) =>
                   handleChange('responsibleCpf', e.currentTarget.value)
                 }
@@ -82,6 +87,7 @@ const UserPersonalData = () => {
                 label='State Registration'
                 required
                 value={user.stateRegistration}
+                helperText={errors.stateRegistration?.[0]}
                 onChange={(e) =>
                   handleChange('stateRegistration', e.currentTarget.value)
                 }
@@ -103,6 +109,7 @@ const UserPersonalData = () => {
             label='Cell Phone'
             required
             value={user.cellPhone}
+            helperText={errors.cellPhone?.[0]}
             onChange={(e) => handleChange('cellPhone', e.currentTarget.value)}
           />
         </Grid>
@@ -111,6 +118,7 @@ const UserPersonalData = () => {
           <TextField
             label='Phone'
             value={user.phone}
+            helperText={errors.phone?.[0]}
             onChange={(e) => handleChange('phone', e.currentTarget.value)}
           />
         </Grid>

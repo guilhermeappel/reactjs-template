@@ -13,7 +13,7 @@ describe('TextField', () => {
         label='Name'
         value=''
         onChange={handleChange}
-        errorMessage='Error message'
+        helperText='Error message'
       />
     );
 

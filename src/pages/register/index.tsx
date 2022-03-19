@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Grid, Box } from '@mui/material';
 import { isMobile } from 'react-device-detect';
 
@@ -45,10 +45,30 @@ const pages: { [key: number]: JSX.Element } = {
 };
 
 const Register = () => {
-  const { user, register } = useRegister();
+  const { user, errors, register } = useRegister();
 
   const [activeStep, setActiveStep] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (
+      errors.name?.length > 0 ||
+      errors.email?.length > 0 ||
+      errors.password?.length > 0 ||
+      errors.passwordConfirmation?.length > 0
+    ) {
+      return setActiveStep(0);
+    }
+
+    if (
+      errors.name?.length > 0 ||
+      errors.email?.length > 0 ||
+      errors.password?.length > 0 ||
+      errors.passwordConfirmation?.length > 0
+    ) {
+      return setActiveStep(1);
+    }
+  }, [errors]);
 
   const currentPageStep = useMemo(() => pages[activeStep], [activeStep]);
 
@@ -126,7 +146,7 @@ const Register = () => {
                       description='SAVE'
                       type='submit'
                       loading={loading}
-                      disabled={disabledSubmit}
+                      disabled={!disabledSubmit}
                       icon={<SaveIcon />}
                     />
                   ) : (
