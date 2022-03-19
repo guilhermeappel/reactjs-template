@@ -38,8 +38,7 @@ const ColorlibConnector = styled(MuiStepConnector)(({ theme }) => ({
   [`& .${muiStepConnectorClasses.line}`]: {
     height: 3,
     border: 0,
-    backgroundColor:
-      theme.palette.mode === 'dark' ? theme.palette.grey[800] : '#eaeaf0',
+    backgroundColor: '#eaeaf0',
     borderRadius: 1,
   },
 }));
@@ -47,8 +46,7 @@ const ColorlibConnector = styled(MuiStepConnector)(({ theme }) => ({
 const ColorlibStepIconRoot = styled('div')<{
   ownerState: { completed?: boolean; active?: boolean };
 }>(({ theme, ownerState }) => ({
-  backgroundColor:
-    theme.palette.mode === 'dark' ? theme.palette.grey[700] : '#ccc',
+  backgroundColor: '#ccc',
   zIndex: 1,
   color: '#fff',
   width: 50,

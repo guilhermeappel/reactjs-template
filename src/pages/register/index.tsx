@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Grid, Box } from '@mui/material';
 import { isMobile } from 'react-device-detect';
 
@@ -45,6 +45,7 @@ const pages: { [key: number]: JSX.Element } = {
 };
 
 const Register = () => {
+  const formRef = useRef<HTMLFormElement>(null);
   const { user, errors, register } = useRegister();
 
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -91,7 +92,11 @@ const Register = () => {
     );
   }, [user]);
 
-  const handleNext = () => {
+  const handleNext = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (!formRef.current?.reportValidity()) {
+      return;
+    }
+
     if (activeStep === 2) {
       return;
     }
@@ -118,7 +123,7 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} ref={formRef}>
       <Container>
         <Box sx={{ maxWidth: 700 }}>
           <Card>

@@ -82,7 +82,9 @@ const RegisterProvider = ({ children }: Props) => {
         navigate('/login');
       })
       .catch((error) => {
-        setErrors(error.response.data.errors as UserRegisterErrors);
+        if (error.response && error.response.status === 400) {
+          setErrors(error.response.data.errors);
+        }
       });
   };
 

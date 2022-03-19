@@ -62,3 +62,9 @@ export interface UserRegisterErrors {
   federativeUnit: string[];
   type: string[];
 }
+
+export interface UserLoginErrors {
+  email: string[];
+  password: string[];
+  invalidLogin: string[];
+}

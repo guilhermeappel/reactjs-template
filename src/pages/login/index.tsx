@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import Grid from '@mui/material/Grid';
+import { Grid } from '@mui/material';
 
 import { Card } from '../../components/surfaces';
 import { Link } from '../../components/navigations';
 import { TextField } from '../../components/inputs';
 import { Container } from '../../components/layouts';
+import { ErrorLabel } from '../../components/typography';
 import { LoadingButton } from '../../components/buttons';
 
 import { useAuth } from '../../contexts/Auth';
@@ -16,7 +17,7 @@ const initialState: UserCredentials = {
 };
 
 const Login = () => {
-  const { login } = useAuth();
+  const { errors, login } = useAuth();
 
   const [user, setUser] = useState(initialState);
   const [loading, setLoading] = useState<boolean>(false);
@@ -30,9 +31,9 @@ const Login = () => {
 
     setLoading(true);
 
-    await login(user);
+    login(user);
 
-    // setLoading(false);
+    setLoading(false);
   };
 
   return (
@@ -43,8 +44,11 @@ const Login = () => {
             <Grid item xs={12}>
               <TextField
                 label='Email'
+                type='email'
                 value={user.email}
                 disabled={loading}
+                required
+                helperText={errors.email?.[0]}
                 onChange={(e) => handleChange('email', e.currentTarget.value)}
               />
             </Grid>
@@ -55,10 +59,16 @@ const Login = () => {
                 type='password'
                 value={user.password}
                 disabled={loading}
+                required
+                helperText={errors.password?.[0]}
                 onChange={(e) =>
                   handleChange('password', e.currentTarget.value)
                 }
               />
+            </Grid>
+
+            <Grid item xs={12}>
+              <ErrorLabel text={errors.invalidLogin?.[0]} />
             </Grid>
 
             <Grid item xs={12}>
